@@ -62,7 +62,7 @@ public class SliderController : MonoBehaviour
             Vector3 newHandPos = usedHand.position;
             Vector3 deltaPos = newHandPos - handPos;
             float distancia = Mathf.Clamp (deltaPos.magnitude, 0, limiteSlider);
-            transform.localPosition = initialPos + new Vector3(0,0, distancia);
+            transform.localPosition = initialPos - new Vector3(0,0, distancia);
         }
     }
 
