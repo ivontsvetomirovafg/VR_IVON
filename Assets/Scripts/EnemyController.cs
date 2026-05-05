@@ -14,9 +14,11 @@ public class EnemyController : MonoBehaviour
     private int patrolIndex;
     [SerializeField]
     private float life;
-    [SerializeField]
-    private WeaponController weapon;
+    private bool playerDetected;
+    //private Weapon weapon;
     private bool reloading;
+
+    //private LevelManager levelManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,13 +40,10 @@ public class EnemyController : MonoBehaviour
             float distance = (player.position - transform.position).magnitude;
             if (distance <= 10)
             {
-                //Disparar
+            
                 animator.SetFloat("Vertical", 0);
                 transform.LookAt(player);
-                if (reloading == false)
-                {
-                    //weapon.EnemyShoot(player);
-                }
+               
             }
         }
         else
