@@ -135,7 +135,7 @@ public class ZombieController : MonoBehaviour
         agent.Stop();
         agent.isStopped = true;
         Muerto = true;
-        animator.SetTrigger("Death");
+        animator.SetTrigger("Die");
 
         GetComponent<Collider>().enabled = false;
     }
