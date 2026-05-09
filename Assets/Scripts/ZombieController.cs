@@ -15,9 +15,11 @@ public class ZombieController : MonoBehaviour
     public float damage;
     [SerializeField]
     private float attackCooldown;
+
     private Transform targetPlayer;
     private float attackTimer;
     private bool Muerto;
+    private bool crawling;
     private bool playerDetected;
 
     private PlayerController player;
@@ -111,30 +113,31 @@ public class ZombieController : MonoBehaviour
             collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
         }
     }*/
+
     public void TakeDamage(float _damage)
     {
         Debug.Log("Recibe daño");
-        //animator.SetBool("Attack", false);
-        //animator.SetTrigger("Back");
 
         life -= _damage;
 
-        if (life <= 30)
+        if (life <= 30 && crawling == false)
         {
+            crawling = true;
+
             animator.SetBool("Attack", false);
             animator.SetTrigger("Crawl");
-            if (life <= 0)
-            {
-                Die();
-            }
-        }
+        }    
+
+        if (life <= 0)
+        {
+            Die();
+        }       
     }
 
     private void Die()
-    {
-        agent.Stop();
-        agent.isStopped = true;
+    {  
         Muerto = true;
+        agent.isStopped = true;
         animator.SetTrigger("Die");
 
         GetComponent<Collider>().enabled = false;

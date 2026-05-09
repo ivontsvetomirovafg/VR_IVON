@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     public void TakePlayerDamage(float _daamage)
     {
-
         life -= _daamage;
 
         if (life <= 0)
