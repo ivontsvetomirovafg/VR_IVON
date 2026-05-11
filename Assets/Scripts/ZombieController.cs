@@ -5,6 +5,7 @@ public class ZombieController : MonoBehaviour
     private Animator animator;
     private UnityEngine.AI.NavMeshAgent agent;
 
+    [Header ("Zombie Kid")]
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -23,6 +24,14 @@ public class ZombieController : MonoBehaviour
     private bool playerDetected;
 
     private PlayerController player;
+
+    [Header ("Zombie Woman")]
+    [SerializeField]
+    private bool zombie2;
+    [SerializeField] 
+    private float slowSpeed;
+    [SerializeField] 
+    private float slowDuration;
 
 
     void Start()
@@ -79,6 +88,7 @@ public class ZombieController : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerEnter(Collider collision)
     {
         if ((collision.gameObject.tag == "Player"))
@@ -103,6 +113,12 @@ public class ZombieController : MonoBehaviour
         }
         animator.SetBool("Attack", true);
         animator.SetBool("Run", false);
+        player.TakePlayerDamage(damage);
+        
+        if (zombie2 == true)
+        {
+            player.Slow(slowSpeed, slowDuration);
+        }
         attackTimer = attackCooldown;
     }
 

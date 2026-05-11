@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private Image lifeBar;
+    [SerializeField]
+    private float speed;
+
+    private bool isSlowed = false;
+    private float originalSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,5 +49,24 @@ public class PlayerController : MonoBehaviour
     public void UpdateLife()
     {
         lifeBar.fillAmount = life / maxLife;
+    }
+
+    public void Slow(float newSpeed, float duration) 
+    {
+        if (isSlowed == false)
+        {
+            StartCoroutine(SlowEffect(newSpeed, duration));
+        }
+    }
+
+    private System.Collections.IEnumerator SlowEffect(float newSpeed, float duration)
+    {
+        isSlowed = true;
+        speed = newSpeed;
+
+        yield return new WaitForSeconds(duration);
+
+        speed = originalSpeed;
+        isSlowed = false;
     }
 }
