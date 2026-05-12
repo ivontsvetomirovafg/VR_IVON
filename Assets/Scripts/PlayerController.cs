@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,16 +13,16 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private Image lifeBar;
-    [SerializeField]
-    private float speed;
 
     private bool isSlowed = false;
-    private float originalSpeed;
+
+    [SerializeField]
+    private DynamicMoveProvider moveSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //moveSpeed =
     }
 
     // Update is called once per frame
@@ -62,11 +63,9 @@ public class PlayerController : MonoBehaviour
     private System.Collections.IEnumerator SlowEffect(float newSpeed, float duration)
     {
         isSlowed = true;
-        speed = newSpeed;
-
+        //moveSpeed
         yield return new WaitForSeconds(duration);
-
-        speed = originalSpeed;
+        //moveSpeed
         isSlowed = false;
     }
 }

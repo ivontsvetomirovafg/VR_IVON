@@ -5,7 +5,6 @@ public class ZombieController : MonoBehaviour
     private Animator animator;
     private UnityEngine.AI.NavMeshAgent agent;
 
-    [Header ("Zombie Kid")]
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -25,14 +24,14 @@ public class ZombieController : MonoBehaviour
 
     private PlayerController player;
 
-    [Header ("Zombie Woman")]
+    [Header ("Zombie Kid")]
     [SerializeField]
     private bool zombie2;
     [SerializeField] 
     private float slowSpeed;
     [SerializeField] 
     private float slowDuration;
-
+    //collider en crawl horizontal
 
     void Start()
     {
@@ -67,6 +66,7 @@ public class ZombieController : MonoBehaviour
             agent.speed = speed;
 
             float distance = Vector3.Distance(transform.position, targetPlayer.position);
+            Debug.Log("Distance = " + distance);
 
             if (distance <= attackRange)
             {
@@ -122,13 +122,13 @@ public class ZombieController : MonoBehaviour
         attackTimer = attackCooldown;
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
         }
-    }*/
+    }
 
     public void TakeDamage(float _damage)
     {
