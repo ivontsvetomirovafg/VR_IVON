@@ -91,7 +91,7 @@ public class ZombieController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if ((collision.gameObject.tag == "Player"))
+        if (collision.gameObject.tag == "Player")
         {
             transform.LookAt(collision.gameObject.transform);
             animator.SetTrigger("Detect");
@@ -122,17 +122,17 @@ public class ZombieController : MonoBehaviour
         attackTimer = attackCooldown;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
         }
-    }
+    }*/
 
     public void TakeDamage(float _damage)
     {
-        Debug.Log("Recibe daño");
+        Debug.Log("Recibe daï¿½o");
 
         life -= _damage;
 

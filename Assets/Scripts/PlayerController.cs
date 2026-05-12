@@ -13,16 +13,19 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private Image lifeBar;
+    [SerializeField]
+    private GameObject gameOver;
 
     private bool isSlowed = false;
 
     [SerializeField]
     private DynamicMoveProvider moveSpeed;
+    private float originalSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //moveSpeed =
+        originalSpeed = moveSpeed.moveSpeed;
     }
 
     // Update is called once per frame
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         GetComponent<Collider>().enabled = false;
-        //panel game over
+        gameOver.SetActive(true);
     }
 
     public void UpdateLife()
@@ -63,9 +66,10 @@ public class PlayerController : MonoBehaviour
     private System.Collections.IEnumerator SlowEffect(float newSpeed, float duration)
     {
         isSlowed = true;
-        //moveSpeed
+        moveSpeed.moveSpeed = newSpeed;
         yield return new WaitForSeconds(duration);
-        //moveSpeed
+        
+        moveSpeed.moveSpeed = originalSpeed;
         isSlowed = false;
     }
 }
