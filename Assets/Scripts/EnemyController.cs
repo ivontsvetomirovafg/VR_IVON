@@ -35,15 +35,17 @@ public class EnemyController : MonoBehaviour
         {
             agent.speed = speed;
             agent.stoppingDistance = 10;
-            animator.SetFloat("Vertical", 1f);
             agent.SetDestination(player.position);
             float distance = (player.position - transform.position).magnitude;
+
+            animator.SetBool("Run", true);
+            animator.SetBool("Attack", false);   
+
             if (distance <= 10)
             {
-            
-                animator.SetFloat("Vertical", 0);
+                animator.SetBool("Attack", true);
+                animator.SetBool("Run", false);
                 transform.LookAt(player);
-               
             }
         }
         else
@@ -51,7 +53,6 @@ public class EnemyController : MonoBehaviour
             if (patrolPoints.Length > 0)
             {
                 agent.speed = speed * 0.5f;
-                animator.SetFloat("Vertical", 0.4f);
                 agent.SetDestination(patrolPoints[patrolIndex].position);
                 float distance = (patrolPoints[patrolIndex].position - transform.position).magnitude;
                 if (distance < 1)
@@ -86,9 +87,7 @@ public class EnemyController : MonoBehaviour
         following = true;
         if (life <= 0)
         {
-            //muerto
-            GameObject ragdollPrefab = (GameObject)Resources.Load("EnemyRagdoll");
-            Instantiate(ragdollPrefab, transform.position, transform.rotation);
+            animator.SetTrigger("Die");
             gameObject.SetActive(false);
         }
         else
@@ -101,7 +100,7 @@ public class EnemyController : MonoBehaviour
     public void Reload()
     {
         reloading = true;
-        animator.SetTrigger("Reload");
+        //animator.SetTrigger("Reload");
         //weapon.Reload();
     }
 

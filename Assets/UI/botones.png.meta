@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7674517d70e914346a2a898b9b743206
+guid: fd2c0560b5f74c14389236ef026d756d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,95 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: botones_0
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 611
+        width: 465
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1499b5a9f3bcf3418cb216239001c5c
+      internalID: 1803265950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botones_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 443
+        width: 465
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 216c4e8ead28ca849a500d6e1ce804b0
+      internalID: -947318204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botones_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 269
+        width: 465
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f7ff3bc69f035b4f88dda1ee2331906
+      internalID: -905805034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botones_3
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 99
+        width: 465
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aabb10706cf7054398fbd6894632684
+      internalID: -1872040190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -122,7 +210,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      botones_0: 1803265950
+      botones_1: -947318204
+      botones_2: -905805034
+      botones_3: -1872040190
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
