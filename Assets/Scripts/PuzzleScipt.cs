@@ -6,11 +6,7 @@ public class PuzzleScipt : MonoBehaviour
     [SerializeField]
     private MeshRenderer mesh;
     [SerializeField]
-    private GameObject[] luces;
-    [SerializeField]
-    private Animator garaje;
-    [SerializeField]
-    private Material redMaterial;
+    private GameObject[] puertasGaraje;
     [SerializeField]
     private bool puzzle1;
 
@@ -19,8 +15,6 @@ public class PuzzleScipt : MonoBehaviour
     private Animator garaje2;
     [SerializeField]
     private GameObject[] palancas;
-    [SerializeField]
-    private bool puzzle2;
 
     void OnTriggerEnter(Collider other)
     {
@@ -28,32 +22,23 @@ public class PuzzleScipt : MonoBehaviour
         {
             return;
         }
-        mesh.material = redMaterial;
-
-        foreach (GameObject luz in luces)
+        mesh.materials[3].SetColor("_EmissionColor", Color.green);
+        foreach (GameObject puerta in puertasGaraje)
         {
-            luz.SetActive(true);
+            puerta.SetActive(false);
         }
-        garaje.SetTrigger("Open");
+        PalancasPuzzle();
     }
 
     public void PalancasPuzzle()
     {
-        if (puzzle2 == true)
+        foreach (GameObject palanca in palancas)
         {
-            return;
-        }
-
-        foreach (GameObject palancaObj in palancas)
-        {
-            /*Palancas palanca = palancaObj.GetComponent<Palancas>();
-
-            if (palanca.activated == false)
+            if (palanca.transform.localEulerAngles.y <= 45f)
             {
                 return;
-            }*/
+            }
         }
-        puzzle2 = true;
         garaje2.SetTrigger("Open");
     }
 }

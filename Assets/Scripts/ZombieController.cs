@@ -24,7 +24,6 @@ public class ZombieController : MonoBehaviour
 
     private PlayerController player;
 
-    [Header ("Zombie Kid")]
     [SerializeField]
     private bool zombie2;
     [SerializeField] 

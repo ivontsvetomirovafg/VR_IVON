@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private Image lifeBar;
     [SerializeField]
     private GameObject gameOver;
+    [SerializeField]
+    private Image gameOverPanel;
 
     private bool isSlowed = false;
 
@@ -47,14 +50,26 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         GetComponent<Collider>().enabled = false;
-        gameOver.SetActive(true);
+        
     }
 
     public void UpdateLife()
     {
         lifeBar.fillAmount = life / maxLife;
+        StartCoroutine(FadeIn());
     }
-
+    private IEnumerator FadeIn()
+    {
+        float alpha = 0f;
+        Color colorImagen = gameOverPanel.color;
+        while (alpha < 1)
+        {
+            alpha += 0.05f;
+            colorImagen.a = alpha;
+            gameOverPanel.color = colorImagen;
+            yield return null;
+        }
+    }
     public void Slow(float newSpeed, float duration) 
     {
         if (isSlowed == false)
