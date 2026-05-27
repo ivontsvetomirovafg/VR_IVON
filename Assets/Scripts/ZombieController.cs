@@ -5,15 +5,15 @@ public class ZombieController : MonoBehaviour
     private Animator animator;
     private UnityEngine.AI.NavMeshAgent agent;
 
-    [SerializeField]
+    [SerializeField] 
     private float speed;
-    [SerializeField]
+    [SerializeField] 
     private float life;
-    [SerializeField]
+    [SerializeField] 
     private float attackRange;
-    [SerializeField]
+    [SerializeField] 
     public float damage;
-    [SerializeField]
+    [SerializeField] 
     private float attackCooldown;
 
     private Transform targetPlayer;
@@ -24,13 +24,12 @@ public class ZombieController : MonoBehaviour
 
     private PlayerController player;
 
-    [SerializeField]
+    [SerializeField] 
     private bool zombie2;
     [SerializeField] 
     private float slowSpeed;
     [SerializeField] 
     private float slowDuration;
-    //collider en crawl horizontal
 
     void Start()
     {
@@ -39,23 +38,21 @@ public class ZombieController : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-
         player = FindObjectOfType<PlayerController>();
     }
 
     public void Update()
     {
-        if (Muerto == true)
+        if (Muerto == true) 
         {
             return;
         }
-
         if (playerDetected == true)
         {
             if (targetPlayer == null)
             {
                 targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-                if (targetPlayer == null)
+                if (targetPlayer == null) 
                 {
                     return;
                 }
@@ -65,8 +62,6 @@ public class ZombieController : MonoBehaviour
             agent.speed = speed;
 
             float distance = Vector3.Distance(transform.position, targetPlayer.position);
-            Debug.Log("Distance = " + distance);
-
             if (distance <= attackRange)
             {
                 agent.isStopped = true;
@@ -79,12 +74,10 @@ public class ZombieController : MonoBehaviour
                 agent.isStopped = false;
             }
 
-            //cooldown
-
             if (attackTimer > 0)
             {
                 attackTimer -= Time.deltaTime;
-            }
+            }           
         }
     }
 
@@ -106,55 +99,56 @@ public class ZombieController : MonoBehaviour
 
     private void Attack()
     {
-        if (attackTimer > 0)
-        {
-            return;
-        }
+        if (attackTimer > 0) return;
+
         animator.SetBool("Attack", true);
         animator.SetBool("Run", false);
-        player.TakePlayerDamage(damage);
-        
-        if (zombie2 == true)
-        {
-            player.Slow(slowSpeed, slowDuration);
-        }
         attackTimer = attackCooldown;
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    public void DealDamage()
     {
-        if (collision.gameObject.tag == "Player")
+        if (Muerto == true) 
         {
-            collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
+            return;
         }
-    }*/
+
+        player.TakePlayerDamage(damage);
+        if (zombie2 == true)
+        {
+            player.Slow(slowSpeed, slowDuration);
+        }     
+    }
 
     public void TakeDamage(float _damage)
     {
-        Debug.Log("Recibe da�o");
+        if (Muerto) 
+        {
+            return;
+        }
 
         life -= _damage;
 
         if (life <= 30 && crawling == false)
         {
             crawling = true;
-
             animator.SetBool("Attack", false);
             animator.SetTrigger("Crawl");
-        }    
+            speed *= 0.4f;
+        }
 
         if (life <= 0)
         {
             Die();
-        }       
+        }     
     }
 
     private void Die()
-    {  
+    {
         Muerto = true;
         agent.isStopped = true;
         animator.SetTrigger("Die");
-
         GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 3f);
     }
 }

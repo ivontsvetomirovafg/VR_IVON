@@ -4,23 +4,22 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField]
+    [SerializeField] 
     private float speed;
     private Transform player;
     private NavMeshAgent agent;
     private bool following;
-    [SerializeField]
+    [SerializeField] 
     private Transform[] patrolPoints;
     private int patrolIndex;
-    [SerializeField]
-    private float life;
+    [SerializeField] private float life;
     private bool playerDetected;
-    //private Weapon weapon;
     private bool reloading;
+    [SerializeField] 
+    private float attackCooldown = 1.5f;
+    private float attackTimer;
+    private bool isDead;
 
-    //private LevelManager levelManager;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,9 +27,18 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (isDead == true) 
+        {
+            return;
+        }
+
+        if (attackTimer > 0f)
+        {
+            attackTimer -= Time.deltaTime; //para bajar el coldown
+        }     
+
         if (following == true)
         {
             agent.speed = speed;
@@ -39,13 +47,17 @@ public class EnemyController : MonoBehaviour
             float distance = (player.position - transform.position).magnitude;
 
             animator.SetBool("Run", true);
-            animator.SetBool("Attack", false);   
+            animator.SetBool("Attack", false);
 
             if (distance <= 10)
             {
-                animator.SetBool("Attack", true);
-                animator.SetBool("Run", false);
-                transform.LookAt(player);
+                if (attackTimer <= 0f)
+                {
+                    animator.SetBool("Attack", true);
+                    animator.SetBool("Run", false);
+                    transform.LookAt(player);
+                    attackTimer = attackCooldown;
+                }
             }
         }
         else
@@ -66,6 +78,7 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -81,27 +94,45 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
     public void TakeDamage(float _damage)
     {
+        if (isDead == true) 
+        {
+            return;
+        }
+
         life -= _damage;
         following = true;
+
         if (life <= 0)
         {
-            animator.SetTrigger("Die");
-            gameObject.SetActive(false);
+            isDead = true;
+            agent.isStopped = true;
+            GetComponent<Collider>().enabled = false;
+            Destroy(gameObject, 3f);
         }
         else
         {
-            //vivo + hit reaction
             animator.SetTrigger("Hit");
-            //AudioManager.instance.PlaySFX( , transform.position);
         }
     }
+    public void DealDamage()
+    {
+        if (isDead == true)
+        {
+            return;
+        } 
+        float distance = (player.position - transform.position).magnitude;
+        if (distance <= 10f)
+        {
+            player.GetComponent<PlayerController>().TakePlayerDamage(10f);
+        }    
+    }
+
     public void Reload()
     {
         reloading = true;
-        //animator.SetTrigger("Reload");
-        //weapon.Reload();
     }
 
     public void FinishReload()

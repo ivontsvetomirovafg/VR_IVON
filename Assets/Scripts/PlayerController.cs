@@ -5,85 +5,95 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] 
     private float life;
-    [SerializeField]
+    [SerializeField] 
     private float maxLife;
-    [SerializeField]
+    [SerializeField] 
     private float minLife;
     private Animator animator;
-    [SerializeField]
+    [SerializeField] 
     private Image lifeBar;
-    [SerializeField]
+    [SerializeField] 
     private GameObject gameOver;
-    [SerializeField]
+    [SerializeField] 
     private Image gameOverPanel;
 
     private bool isSlowed = false;
+    private bool isDead = false; 
 
-    [SerializeField]
+    [SerializeField] 
     private DynamicMoveProvider moveSpeed;
     private float originalSpeed;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        life = maxLife; 
         originalSpeed = moveSpeed.moveSpeed;
+
+        if (gameOverPanel != null)
+        {
+            Color c = gameOverPanel.color;
+            c.a = 0f;
+            gameOverPanel.color = c;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakePlayerDamage(float _damage)
     {
+        if (isDead == true) 
+        {
+            return;
+        } 
+        life -= _damage;
         UpdateLife();
-    }
-
-    public void TakePlayerDamage(float _daamage)
-    {
-        life -= _daamage;
 
         if (life <= 0)
         {
             Die();
-        }
+        }      
     }
 
     private void Die()
     {
+        isDead = true;
         GetComponent<Collider>().enabled = false;
-        
+        StartCoroutine(FadeIn());
     }
 
     public void UpdateLife()
     {
         lifeBar.fillAmount = life / maxLife;
-        StartCoroutine(FadeIn());
-    }
-    private IEnumerator FadeIn()
-    {
-        float alpha = 0f;
-        Color colorImagen = gameOverPanel.color;
-        while (alpha < 1)
-        {
-            alpha += 0.05f;
-            colorImagen.a = alpha;
-            gameOverPanel.color = colorImagen;
-            yield return null;
-        }
-    }
-    public void Slow(float newSpeed, float duration) 
-    {
-        if (isSlowed == false)
-        {
-            StartCoroutine(SlowEffect(newSpeed, duration));
-        }
     }
 
-    private System.Collections.IEnumerator SlowEffect(float newSpeed, float duration)
+    private IEnumerator FadeIn()
+    {
+        float duration = 2f;
+        float elapsed = 0f;
+        Color c = gameOverPanel.color;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            c.a = Mathf.Clamp01(elapsed / duration);
+            gameOverPanel.color = c;
+            yield return null;
+        }
+
+        c.a = 1f;
+        gameOverPanel.color = c;
+    }
+
+    public void Slow(float newSpeed, float duration)
+    {
+        StartCoroutine(SlowEffect(newSpeed, duration));
+    }
+
+    private IEnumerator SlowEffect(float newSpeed, float duration)
     {
         isSlowed = true;
         moveSpeed.moveSpeed = newSpeed;
         yield return new WaitForSeconds(duration);
-        
         moveSpeed.moveSpeed = originalSpeed;
         isSlowed = false;
     }
