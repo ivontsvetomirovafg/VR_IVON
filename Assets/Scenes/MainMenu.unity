@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.23073158, g: 0.32829943, b: 0.5754717, a: 1}
+  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 656058fe318eb48558d21d66d1a79a2b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 124}
-  m_SizeDelta: {x: 311.2, y: 304.8}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 375.74, y: 395.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &283192609
 MonoBehaviour:
@@ -821,7 +821,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437408335}
   m_LocalRotation: {x: -0, y: 0.9063079, z: -0, w: 0.42261827}
-  m_LocalPosition: {x: 0, y: 0, z: 12.162632}
+  m_LocalPosition: {x: 0, y: 0, z: 12.086}
   m_LocalScale: {x: 0.0022865357, y: 0.0022865357, z: 0.0022865357}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -832,7 +832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 12.0689945, y: 1.36144}
+  m_AnchoredPosition: {x: 12.16, y: 2.848}
   m_SizeDelta: {x: 627, y: 505}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437408340
@@ -889,7 +889,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39}
+  m_AnchoredPosition: {x: 0, y: -77}
   m_SizeDelta: {x: 234.4, y: 85.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1543002193
@@ -1009,7 +1009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -128.00002}
+  m_AnchoredPosition: {x: 0, y: -192.4}
   m_SizeDelta: {x: 234.4, y: 85.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1807086535
@@ -1102,21 +1102,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 924380666404614599, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434761886712666142, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5434761886927701051, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5434761886927701051, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.1550544
+      value: 0.9677359
       objectReference: {fileID: 0}
     - target: {fileID: 5434761886927701051, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.062789254
+      value: 0.19339621
       objectReference: {fileID: 0}
     - target: {fileID: 5434761886927701051, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.16037738
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5756258263677418971, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1233,6 +1241,10 @@ PrefabInstance:
     - target: {fileID: 6682006723054804321, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_Name
       value: XR Origin Mio
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682006723054804321, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6682006723054804322, guid: d6f0a79b7f27d8441ad2e0c10fae31af, type: 3}
       propertyPath: m_LocalPosition.x

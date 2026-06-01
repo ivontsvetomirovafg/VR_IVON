@@ -82,13 +82,25 @@ public class ZombieController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collision)
-    {
+    {      
+        if (Muerto == true) 
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Player")
         {
             transform.LookAt(collision.gameObject.transform);
             animator.SetTrigger("Detect");
             Invoke("StartMoving", 2f);
+        }        
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
         }
+        if (zombie2 == true)
+        {
+            player.Slow(slowSpeed, slowDuration);
+        }    
     }
 
     public void StartMoving()
@@ -99,30 +111,18 @@ public class ZombieController : MonoBehaviour
 
     private void Attack()
     {
-        if (attackTimer > 0) return;
-
+        if (attackTimer > 0)
+        {
+            return;
+        }
         animator.SetBool("Attack", true);
         animator.SetBool("Run", false);
         attackTimer = attackCooldown;
     }
 
-    public void DealDamage()
-    {
-        if (Muerto == true) 
-        {
-            return;
-        }
-
-        player.TakePlayerDamage(damage);
-        if (zombie2 == true)
-        {
-            player.Slow(slowSpeed, slowDuration);
-        }     
-    }
-
     public void TakeDamage(float _damage)
     {
-        if (Muerto) 
+        if (Muerto == true) 
         {
             return;
         }

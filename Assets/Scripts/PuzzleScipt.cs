@@ -9,6 +9,8 @@ public class PuzzleScipt : MonoBehaviour
     private GameObject[] puertasGaraje;
     [SerializeField]
     private bool puzzle1;
+    [SerializeField]
+    private Animator button;
 
     [Header("Puzzle 2")]
     [SerializeField]
@@ -22,10 +24,14 @@ public class PuzzleScipt : MonoBehaviour
         {
             return;
         }
+        Debug.Log("Toco el boton");
+        button.SetTrigger("TouchButton");
         mesh.materials[3].SetColor("_EmissionColor", Color.green);
         foreach (GameObject puerta in puertasGaraje)
         {
+            Debug.Log("Se abre el garaje");
             puerta.SetActive(false);
+            puzzle1 = false;    
         }
         PalancasPuzzle();
     }

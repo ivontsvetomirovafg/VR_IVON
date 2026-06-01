@@ -52,12 +52,12 @@ public class WeaponController : MonoBehaviour
     {
         if(cargador != null && sliderCargado == true)
         {
-            if(fireRate <= timePass && cargador.bullets >0)
+            if (fireRate <= timePass && cargador.bullets >0)
             {
+                Debug.Log("Bala se instancia");
                 GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 bulletClone.GetComponent<Rigidbody>().linearVelocity = bulletClone.transform.forward*bulletSpeed;
                 cargador.bullets -= 1;
-
                 timePass = 0;
             }
         }   

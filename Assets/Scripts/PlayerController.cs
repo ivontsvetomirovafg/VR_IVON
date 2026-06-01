@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameOverPanel != null)
         {
-            Color c = gameOverPanel.color;
-            c.a = 0f;
-            gameOverPanel.color = c;
+            Color color = gameOverPanel.color;
+            color.a = 0f;
+            gameOverPanel.color = color;
         }
     }
 
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         GetComponent<Collider>().enabled = false;
-        StartCoroutine(FadeIn());
+        //StartCoroutine(FadeIn());
     }
 
     public void UpdateLife()
@@ -66,23 +66,23 @@ public class PlayerController : MonoBehaviour
         lifeBar.fillAmount = life / maxLife;
     }
 
-    private IEnumerator FadeIn()
+    /*private IEnumerator FadeIn()
     {
         float duration = 2f;
-        float elapsed = 0f;
-        Color c = gameOverPanel.color;
+        float tiempoTranscurrido = 0f;
+        Color color = gameOverPanel.color;
 
-        while (elapsed < duration)
+        while (tiempoTranscurrido < duration)
         {
-            elapsed += Time.deltaTime;
-            c.a = Mathf.Clamp01(elapsed / duration);
-            gameOverPanel.color = c;
+            tiempoTranscurrido += Time.deltaTime;
+            color.a = Mathf.Clamp01(tiempoTranscurrido / duration);
+            gameOverPanel.color = color;
             yield return null;
         }
 
-        c.a = 1f;
-        gameOverPanel.color = c;
-    }
+        color.a = 1f;
+        gameOverPanel.color = color;
+    }*/
 
     public void Slow(float newSpeed, float duration)
     {

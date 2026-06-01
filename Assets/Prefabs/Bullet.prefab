@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758a2ea3f9143c442b9e704092578af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletScript
-  damage: 15
+  damage: 20
 --- !u!136 &8866433626231381406
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0062413216
+  m_Radius: 0.01241322
   m_Height: 0.032146454
   m_Direction: 2
   m_Center: {x: 0, y: 0.00019568205, z: 0.013353348}
