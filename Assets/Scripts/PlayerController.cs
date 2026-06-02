@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         GetComponent<Collider>().enabled = false;
-        //StartCoroutine(FadeIn());
+        StartCoroutine(FadeIn());
     }
 
     public void UpdateLife()
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         lifeBar.fillAmount = life / maxLife;
     }
 
-    /*private IEnumerator FadeIn()
+    private IEnumerator FadeIn()
     {
         float duration = 2f;
         float tiempoTranscurrido = 0f;
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
         color.a = 1f;
         gameOverPanel.color = color;
-    }*/
+    }
 
     public void Slow(float newSpeed, float duration)
     {

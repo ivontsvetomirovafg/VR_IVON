@@ -8,7 +8,7 @@ public class PuzzleScipt : MonoBehaviour
     [SerializeField]
     private GameObject[] puertasGaraje;
     [SerializeField]
-    private bool puzzle1;
+    private bool puzzle1 = true;
     [SerializeField]
     private Animator button;
 
@@ -26,7 +26,7 @@ public class PuzzleScipt : MonoBehaviour
         }
         Debug.Log("Toco el boton");
         button.SetTrigger("TouchButton");
-        mesh.materials[3].SetColor("_EmissionColor", Color.green);
+        mesh.materials[3].SetColor("_EmissionColor", Color.green); //hacer que funcione
         foreach (GameObject puerta in puertasGaraje)
         {
             Debug.Log("Se abre el garaje");
@@ -38,13 +38,17 @@ public class PuzzleScipt : MonoBehaviour
 
     public void PalancasPuzzle()
     {
+        bool todasOkay = true;
         foreach (GameObject palanca in palancas)
         {
             if (palanca.transform.localEulerAngles.y <= 45f)
             {
-                return;
+               todasOkay = false; 
             }
         }
-        garaje2.SetTrigger("Open");
+        if (todasOkay == true)
+        {
+            garaje2.SetTrigger("Open");
+        }
     }
 }
