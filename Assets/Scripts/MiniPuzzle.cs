@@ -7,11 +7,14 @@ public class MiniPuzzle : MonoBehaviour
     private Animator puerta;
     [SerializeField]
     private GameObject ball;
+    [SerializeField]
+    private AudioClip button;
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ball)
         {
+            AudioManager.instance.PlaySFX(button, transform.position);
             puerta.SetTrigger("Open");     
         }
     }

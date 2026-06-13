@@ -17,6 +17,9 @@ public class SliderController : MonoBehaviour
     private Vector3 handPose;
     private bool isGrabbed;
 
+    [SerializeField]
+    private AudioClip reload; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,6 +47,7 @@ public class SliderController : MonoBehaviour
 
     IEnumerator ReturnToInitialPos()
     {
+        AudioManager.instance.PlaySFX(reload, transform.position);
         Vector3 startPos = transform.localPosition;
         float t = 0f;
         while (t <1)

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro; 
 
 public class WeaponController : MonoBehaviour
 {
@@ -11,13 +12,21 @@ public class WeaponController : MonoBehaviour
     private Transform bulletSpawnPoint;
     [SerializeField]
     private float fireRate;
+
     private float timePass;
     [SerializeField]
     private float bulletSpeed;
     private VRMagazine cargador;
     private bool sliderCargado;
+
     [SerializeField]
     private Transform slider;
+    [SerializeField] 
+    private TextMeshProUGUI bulletText;  
+    [SerializeField] 
+    private int maxBullets = 15;
+    [SerializeField]
+    private AudioClip shoot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,6 +41,15 @@ public class WeaponController : MonoBehaviour
         if(slider.localPosition.z > 0.03f)
         {
             sliderCargado = true;
+        }
+
+        if (cargador != null)
+        {
+            bulletText.text = cargador.bullets + "/" + maxBullets;
+        }
+        else
+        {
+            bulletText.text = "0/" + maxBullets;
         }
     }
 
@@ -55,6 +73,8 @@ public class WeaponController : MonoBehaviour
             if (fireRate <= timePass && cargador.bullets >0)
             {
                 Debug.Log("Bala se instancia");
+                AudioManager.instance.PlaySFX(shoot, transform.position);
+
                 GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 bulletClone.GetComponent<Rigidbody>().linearVelocity = bulletClone.transform.forward*bulletSpeed;
                 cargador.bullets -= 1;

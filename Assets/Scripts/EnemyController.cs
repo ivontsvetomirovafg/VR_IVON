@@ -12,13 +12,26 @@ public class EnemyController : MonoBehaviour
     [SerializeField] 
     private Transform[] patrolPoints;
     private int patrolIndex;
-    [SerializeField] private float life;
+    [SerializeField] 
+    private float life;
     private bool playerDetected;
     private bool reloading;
     [SerializeField] 
     private float attackCooldown = 1.5f;
     private float attackTimer;
     private bool isDead;
+
+    [SerializeField] 
+    private GameObject bulletPrefab;
+    [SerializeField] 
+    private Transform bulletSpawnPoint;
+    [SerializeField] 
+    private float bulletSpeed;
+    [SerializeField] 
+    private float bulletDamage;
+
+    [SerializeField]
+    private AudioClip shoot; 
 
     void Start()
     {
@@ -117,17 +130,21 @@ public class EnemyController : MonoBehaviour
             animator.SetTrigger("Hit");
         }
     }
-    public void DealDamage()
+    public void Shoot()
     {
-        if (isDead == true)
+        if (isDead == true) 
         {
             return;
-        } 
-        float distance = (player.position - transform.position).magnitude;
-        if (distance <= 10f)
-        {
-            player.GetComponent<PlayerController>().TakePlayerDamage(10f);
-        }    
+        }
+        AudioManager.instance.PlaySFX(shoot, transform.position);
+        GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+        Vector3 aimPoint = player.position + new Vector3(0, 1f, 0);   
+        Vector3 direction = (aimPoint - bulletSpawnPoint.position).normalized;
+        bulletClone.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
+
+        bulletClone.GetComponent<BulletScript>().damage = bulletDamage;
+        bulletClone.GetComponent<BulletScript>().enemyBullet = true;  
     }
 
     public void Reload()

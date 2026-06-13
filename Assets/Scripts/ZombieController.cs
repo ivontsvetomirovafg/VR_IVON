@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; 
 
 public class ZombieController : MonoBehaviour
 {
@@ -31,6 +32,16 @@ public class ZombieController : MonoBehaviour
     [SerializeField] 
     private float slowDuration;
 
+    [SerializeField]
+    private AudioClip scream;
+    [SerializeField]
+    private AudioClip zombieSFX;
+    [SerializeField]
+    private AudioClip dead;
+    [SerializeField]
+    private AudioSource loopSource; 
+ 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         life = 100f;
@@ -39,9 +50,15 @@ public class ZombieController : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
         player = FindObjectOfType<PlayerController>();
+
+        //hago su propio audiosource para reproducir en bucle su sonido
+        loopSource.clip = zombieSFX;
+        loopSource.loop = true;
+        loopSource.Play();
     }
 
-    public void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (Muerto == true) 
         {
@@ -92,21 +109,40 @@ public class ZombieController : MonoBehaviour
             transform.LookAt(collision.gameObject.transform);
             animator.SetTrigger("Detect");
             Invoke("StartMoving", 2f);
-        }        
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
+            StartCoroutine(Scream());
+
+            if (zombie2 == true)   
+            {
+                player.Slow(slowSpeed, slowDuration);
+            }
         }
-        if (zombie2 == true)
-        {
-            player.Slow(slowSpeed, slowDuration);
-        }    
+    }
+
+    private IEnumerator Scream()
+    {
+        loopSource.Stop();                 
+        loopSource.PlayOneShot(scream);    
+        yield return new WaitForSeconds(5f);  
+        loopSource.Play();               
     }
 
     public void StartMoving()
     {
         playerDetected = true;
         animator.SetBool("Run", true);
+    }
+    
+    public void DealDamage()
+    {
+        if (Muerto == true) 
+        {
+            return;
+        }
+        float distance = Vector3.Distance(transform.position, targetPlayer.position);
+        if (distance <= attackRange)
+        {
+            player.TakePlayerDamage(damage);
+        }
     }
 
     private void Attack()
@@ -145,6 +181,7 @@ public class ZombieController : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.instance.PlaySFX(dead, transform.position);
         Muerto = true;
         agent.isStopped = true;
         animator.SetTrigger("Die");

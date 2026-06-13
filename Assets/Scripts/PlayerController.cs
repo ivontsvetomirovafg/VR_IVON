@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,15 +10,14 @@ public class PlayerController : MonoBehaviour
     private float life;
     [SerializeField] 
     private float maxLife;
-    [SerializeField] 
-    private float minLife;
     private Animator animator;
     [SerializeField] 
     private Image lifeBar;
+
     [SerializeField] 
-    private GameObject gameOver;
-    [SerializeField] 
-    private Image gameOverPanel;
+    private GameObject gameOverPanel;
+    [SerializeField]
+    private Animator gameOverAnim; 
 
     private bool isSlowed = false;
     private bool isDead = false; 
@@ -26,16 +26,42 @@ public class PlayerController : MonoBehaviour
     private DynamicMoveProvider moveSpeed;
     private float originalSpeed;
 
+    //Sonido pasos
+    [SerializeField]
+    private InputActionReference moveAction;   
+    private bool steps;                                      
+    [SerializeField]
+    private float iniciarPasos = 0.3f;    
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         life = maxLife; 
         originalSpeed = moveSpeed.moveSpeed;
 
-        if (gameOverPanel != null)
+        moveAction.action.Enable();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 input = moveAction.action.ReadValue<Vector2>();
+
+        if (steps == false)
         {
-            Color color = gameOverPanel.color;
-            color.a = 0f;
-            gameOverPanel.color = color;
+            if (input.x >= iniciarPasos || input.x <= -iniciarPasos || input.y >= iniciarPasos || input.y <= -iniciarPasos)
+            {
+                steps = true;
+                AudioManager.instance.PlaySteps(0.3f);
+            }
+        }
+        else
+        {
+            if (input.x >= -iniciarPasos && input.x <= iniciarPasos && input.y >= -iniciarPasos && input.y <= iniciarPasos)
+            {
+                AudioManager.instance.StopSteps();
+                steps = false;
+            }
         }
     }
 
@@ -58,7 +84,8 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         GetComponent<Collider>().enabled = false;
-        StartCoroutine(FadeIn());
+        gameOverPanel.SetActive(true);
+        gameOverAnim.SetTrigger("Buttons");
     }
 
     public void UpdateLife()
@@ -66,26 +93,12 @@ public class PlayerController : MonoBehaviour
         lifeBar.fillAmount = life / maxLife;
     }
 
-    private IEnumerator FadeIn()
-    {
-        float duration = 2f;
-        float tiempoTranscurrido = 0f;
-        Color color = gameOverPanel.color;
-
-        while (tiempoTranscurrido < duration)
-        {
-            tiempoTranscurrido += Time.deltaTime;
-            color.a = Mathf.Clamp01(tiempoTranscurrido / duration);
-            gameOverPanel.color = color;
-            yield return null;
-        }
-
-        color.a = 1f;
-        gameOverPanel.color = color;
-    }
-
     public void Slow(float newSpeed, float duration)
     {
+        if (isSlowed == true) 
+        {
+            return;  
+        }
         StartCoroutine(SlowEffect(newSpeed, duration));
     }
 

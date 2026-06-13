@@ -1,16 +1,17 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR; 
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject panelGameOver;
     [SerializeField] 
     private GameObject panelPause;
-    /*[SerializeField]
-    private AudioClip musica;*/
+    [SerializeField]
+    private AudioClip musica;
+    [SerializeField]
+    private AudioClip buttonPausa;
+    private bool botonPulsado;
 
     private void Awake()
     {
@@ -19,17 +20,9 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        //AudioManager.instance.PlayMusic(musica);
+        AudioManager.instance.PlayMusic(musica);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause();
-        }
-    }
     public void MainMenuButton()
     {
         //AudioManager.instance.StopMusic();
@@ -41,6 +34,7 @@ public class LevelManager : MonoBehaviour
     {
         if (panelPause.activeInHierarchy == false)
         {
+            AudioManager.instance.PlaySFX(buttonPausa, transform.position);
             panelPause.SetActive(true);
         }
         else
