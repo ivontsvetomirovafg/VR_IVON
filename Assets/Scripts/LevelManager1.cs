@@ -11,7 +11,6 @@ public class LevelManager : MonoBehaviour
     private AudioClip musica;
     [SerializeField]
     private AudioClip buttonPausa;
-    private bool botonPulsado;
 
     private void Awake()
     {

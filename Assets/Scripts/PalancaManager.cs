@@ -8,7 +8,6 @@ public class PalancaManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(transform.localEulerAngles.y); 
         if (activada == true) 
         {
             return;

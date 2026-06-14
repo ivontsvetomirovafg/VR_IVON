@@ -138,13 +138,14 @@ public class EnemyController : MonoBehaviour
         }
         AudioManager.instance.PlaySFX(shoot, transform.position);
         GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        
+        Vector3 point = player.position + new Vector3(0, 1f, 0); //para que no dispare a los pies xd
+        Vector3 direction = (point - bulletSpawnPoint.position).normalized;
 
-        Vector3 aimPoint = player.position + new Vector3(0, 1f, 0);   
-        Vector3 direction = (aimPoint - bulletSpawnPoint.position).normalized;
         bulletClone.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
-
-        bulletClone.GetComponent<BulletScript>().damage = bulletDamage;
-        bulletClone.GetComponent<BulletScript>().enemyBullet = true;  
+        BulletScript bala = bulletClone.GetComponent<BulletScript>(); 
+        bala.damage = bulletDamage;
+        bala.enemyBullet = true;
     }
 
     public void Reload()

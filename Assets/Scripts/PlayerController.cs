@@ -26,9 +26,6 @@ public class PlayerController : MonoBehaviour
     private DynamicMoveProvider moveSpeed;
     private float originalSpeed;
 
-    //Sonido pasos
-    [SerializeField]
-    private InputActionReference moveAction;   
     private bool steps;                                      
     [SerializeField]
     private float iniciarPasos = 0.3f;    
@@ -38,16 +35,12 @@ public class PlayerController : MonoBehaviour
     {
         life = maxLife; 
         originalSpeed = moveSpeed.moveSpeed;
-
-        moveAction.action.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
-
-        if (steps == false)
+        /*if (steps == false)
         {
             if (input.x >= iniciarPasos || input.x <= -iniciarPasos || input.y >= iniciarPasos || input.y <= -iniciarPasos)
             {
@@ -62,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 AudioManager.instance.StopSteps();
                 steps = false;
             }
-        }
+        }*/
     }
 
     public void TakePlayerDamage(float _damage)
@@ -84,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         GetComponent<Collider>().enabled = false;
+        
         gameOverPanel.SetActive(true);
         gameOverAnim.SetTrigger("Buttons");
     }
