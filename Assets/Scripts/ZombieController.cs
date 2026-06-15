@@ -22,6 +22,7 @@ public class ZombieController : MonoBehaviour
     private bool Muerto;
     private bool crawling;
     private bool playerDetected;
+    private Rigidbody rb;
 
     private PlayerController player;
 
@@ -50,6 +51,7 @@ public class ZombieController : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
         player = FindObjectOfType<PlayerController>();
+        rb = GetComponent<Rigidbody>();
 
         //hago su propio audiosource para reproducir en bucle su sonido
         loopSource.clip = zombieSFX;
@@ -164,13 +166,17 @@ public class ZombieController : MonoBehaviour
         }
 
         life -= _damage;
+        Debug.Log("Recibe daño");
 
-        if (life <= 30 && crawling == false)
+        if (zombie2 == true)
         {
-            crawling = true;
-            animator.SetBool("Attack", false);
-            animator.SetTrigger("Crawl");
-            speed *= 0.4f;
+            if (life <= 30 && crawling == false)
+            {
+                crawling = true;
+                animator.SetBool("Attack", false);
+                animator.SetTrigger("Crawl");
+                speed *= 0.4f;
+            }
         }
 
         if (life <= 0)
@@ -181,9 +187,12 @@ public class ZombieController : MonoBehaviour
 
     private void Die()
     {
-        AudioManager.instance.PlaySFX(dead, transform.position);
+        //AudioManager.instance.PlaySFX(dead, transform.position);
         Muerto = true;
         agent.isStopped = true;
+        rb.linearVelocity = Vector3.zero;
+        rb.isKinematic = true;
+
         animator.SetTrigger("Die");
         GetComponent<Collider>().enabled = false;
         Destroy(gameObject, 3f);

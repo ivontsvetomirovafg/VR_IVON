@@ -21,6 +21,7 @@ public class BulletScript : MonoBehaviour
                 ZombieController zombie = collision.gameObject.GetComponent<ZombieController>();
                 if (zombie != null)
                 {
+                    Debug.Log("Ha colisionado");
                     zombie.TakeDamage(damage);
                 }
 

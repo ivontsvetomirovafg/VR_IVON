@@ -47,7 +47,7 @@ public class SliderController : MonoBehaviour
 
     IEnumerator ReturnToInitialPos()
     {
-        AudioManager.instance.PlaySFX(reload, transform.position);
+        //AudioManager.instance.PlaySFX(reload, transform.position);
         Vector3 startPos = transform.localPosition;
         float t = 0f;
         while (t <1)

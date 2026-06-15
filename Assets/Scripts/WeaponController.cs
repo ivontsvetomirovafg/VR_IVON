@@ -28,6 +28,9 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     private AudioClip shoot;
 
+    [SerializeField]
+    private float sliderDist;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,12 +41,12 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         timePass += Time.deltaTime;
-        if(slider.localPosition.z > 0.03f)
+        if (slider.localPosition.z > sliderDist)
         {
             sliderCargado = true;
         }
 
-        if (cargador != null)
+        if (cargador != null && sliderCargado == true)
         {
             bulletText.text = cargador.bullets + "/" + maxBullets;
         }
@@ -68,7 +71,7 @@ public class WeaponController : MonoBehaviour
 
     public void Shoot()
     {
-        if(cargador != null && sliderCargado == true)
+        if (cargador != null && sliderCargado == true)
         {
             if (fireRate <= timePass && cargador.bullets >0)
             {

@@ -25,10 +25,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private DynamicMoveProvider moveSpeed;
     private float originalSpeed;
-
-    private bool steps;                                      
+                                     
     [SerializeField]
-    private float iniciarPasos = 0.3f;    
+    private float iniciarPasos = 0.3f;
+    [SerializeField]
+    private InputActionReference stepsAction;   
+    private bool steps;  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //si está en performed que suene, si está en canceled que no suene 
+
         /*if (steps == false)
         {
             if (input.x >= iniciarPasos || input.x <= -iniciarPasos || input.y >= iniciarPasos || input.y <= -iniciarPasos)
