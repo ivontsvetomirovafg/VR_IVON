@@ -221,14 +221,14 @@ MonoBehaviour:
   speed: 5
   life: 100
   attackRange: 2
-  damage: 25
+  damage: 15
   attackCooldown: 3
   zombie2: 0
   slowSpeed: 0
   slowDuration: 0
   scream: {fileID: 8300000, guid: 2743b9e6c017b804089a2d5b0a61e0c5, type: 3}
   zombieSFX: {fileID: 8300000, guid: d00a1176ae3f4ce4189dfd8c3587f09d, type: 3}
-  dead: {fileID: 0}
+  dead: {fileID: 8300000, guid: 7a51d7e4a78a7d04e990a111df87cd86, type: 3}
   loopSource: {fileID: 1673713329454306679}
 --- !u!95 &9198924350504558081
 Animator:
@@ -305,7 +305,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9151503874339913363}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

@@ -53,7 +53,6 @@ public class ZombieController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
 
-        //hago su propio audiosource para reproducir en bucle su sonido
         loopSource.clip = zombieSFX;
         loopSource.loop = true;
         loopSource.Play();
@@ -66,6 +65,16 @@ public class ZombieController : MonoBehaviour
         {
             return;
         }
+
+        if (player.isDead == true)
+        {
+            agent.isStopped = true;
+            animator.SetBool("Run", false);
+            animator.SetBool("Attack", false);
+            loopSource.Stop(); 
+            return;
+        }
+        
         if (playerDetected == true)
         {
             if (targetPlayer == null)
@@ -166,7 +175,7 @@ public class ZombieController : MonoBehaviour
         }
 
         life -= _damage;
-        Debug.Log("Recibe daño");
+        Debug.Log("Recibe daï¿½o");
 
         if (zombie2 == true)
         {

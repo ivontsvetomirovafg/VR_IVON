@@ -23,6 +23,8 @@ public class PuzzleScipt : MonoBehaviour
     private AudioClip buttonClick; 
     [SerializeField]
     private AudioClip palancaActivada; 
+    [SerializeField]
+    private AudioClip garajeSFX; 
 
     [Header("Cinemática")]
     [SerializeField]
@@ -75,6 +77,7 @@ public class PuzzleScipt : MonoBehaviour
         {
             puzzle2Completado = true;
             garaje2.SetTrigger("Open");
+            AudioManager.instance.PlaySFX(garajeSFX, transform.position);
             StartCoroutine(Cinematica());
         }
     }

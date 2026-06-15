@@ -15,6 +15,7 @@ public class Win : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.StopMusic();          
             AudioManager.instance.PlaySFX(win, transform.position);
             winPanel.SetActive(true);
             puertaGaraje.SetTrigger("Close");

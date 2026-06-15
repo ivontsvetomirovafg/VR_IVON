@@ -19,47 +19,66 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator gameOverAnim; 
 
-    private bool isSlowed = false;
-    private bool isDead = false; 
-
     [SerializeField] 
     private DynamicMoveProvider moveSpeed;
+
+    [SerializeField]
+    private AudioSource breathSource;   
+    [SerializeField]
+    private AudioClip breathSFX;    
+
+    private bool isSlowed = false;
+    public bool isDead = false; 
     private float originalSpeed;
                                      
     [SerializeField]
-    private float iniciarPasos = 0.3f;
-    [SerializeField]
     private InputActionReference stepsAction;   
-    private bool steps;  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         life = maxLife; 
         originalSpeed = moveSpeed.moveSpeed;
+
+        breathSource.clip = breathSFX;  
+        breathSource.loop = true;    
+        breathSource.Play(); 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        //si está en performed que suene, si está en canceled que no suene 
-
-        /*if (steps == false)
+        if (stepsAction == null || stepsAction.action == null) 
         {
-            if (input.x >= iniciarPasos || input.x <= -iniciarPasos || input.y >= iniciarPasos || input.y <= -iniciarPasos)
-            {
-                steps = true;
-                AudioManager.instance.PlaySteps(0.3f);
-            }
+            return;
         }
-        else
+        stepsAction.action.started  += EmpezarPasos;  
+        stepsAction.action.canceled += PararPasos;
+        stepsAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (stepsAction == null || stepsAction.action == null) 
         {
-            if (input.x >= -iniciarPasos && input.x <= iniciarPasos && input.y >= -iniciarPasos && input.y <= iniciarPasos)
-            {
-                AudioManager.instance.StopSteps();
-                steps = false;
-            }
-        }*/
+            return;
+        }
+        stepsAction.action.started  -= EmpezarPasos;
+        stepsAction.action.canceled -= PararPasos;
+    }
+    private void EmpezarPasos(InputAction.CallbackContext context)
+    {
+        Debug.Log("paso start");
+        if (isDead == true) 
+        {
+            return;
+        }
+        AudioManager.instance.PlaySteps(0.3f);
+    }
+
+    private void PararPasos(InputAction.CallbackContext context)
+    {
+        Debug.Log("paso stopp");
+        AudioManager.instance.StopSteps();
     }
 
     public void TakePlayerDamage(float _damage)
@@ -81,7 +100,9 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         GetComponent<Collider>().enabled = false;
-        
+        AudioManager.instance.StopMusic();
+        breathSource.Stop();
+
         gameOverPanel.SetActive(true);
         gameOverAnim.SetTrigger("Buttons");
     }

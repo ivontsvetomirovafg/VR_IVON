@@ -27,6 +27,8 @@ public class WeaponController : MonoBehaviour
     private int maxBullets = 15;
     [SerializeField]
     private AudioClip shoot;
+    [SerializeField]
+    private ParticleSystem shootFlash; 
 
     [SerializeField]
     private float sliderDist;
@@ -77,6 +79,7 @@ public class WeaponController : MonoBehaviour
             {
                 Debug.Log("Bala se instancia");
                 AudioManager.instance.PlaySFX(shoot, transform.position);
+                shootFlash.Play();   
 
                 GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 bulletClone.GetComponent<Rigidbody>().linearVelocity = bulletClone.transform.forward*bulletSpeed;

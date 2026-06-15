@@ -79,8 +79,8 @@ Transform:
   m_GameObject: {fileID: 6390312712699489934}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4957531, y: 0.49048874, z: -0.50950974, w: 0.50403315}
-  m_LocalPosition: {x: -0.005, y: 0.265, z: -0.031}
-  m_LocalScale: {x: 0.3486299, y: 0.117159255, z: 0.2630041}
+  m_LocalPosition: {x: -0.005, y: 0.198, z: -0.03}
+  m_LocalScale: {x: 0.41393885, y: 0.23935635, z: 0.53731734}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8059733937248815954}
@@ -316,14 +316,14 @@ MonoBehaviour:
   speed: 4
   life: 100
   attackRange: 2.7
-  damage: 15
+  damage: 10
   attackCooldown: 2
   zombie2: 1
-  slowSpeed: 4
+  slowSpeed: 3
   slowDuration: 5
   scream: {fileID: 8300000, guid: e979cac2cf7b7fb4ba6ff64022b70576, type: 3}
   zombieSFX: {fileID: 8300000, guid: db043cf49b04b9647b4d742be9525c68, type: 3}
-  dead: {fileID: 0}
+  dead: {fileID: 8300000, guid: 69aece1a8415c3445a7f5b8c39b39987, type: 3}
   loopSource: {fileID: 4287503608675706598}
 --- !u!54 &5145260914667621454
 Rigidbody:
@@ -333,7 +333,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3674566810987201387}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

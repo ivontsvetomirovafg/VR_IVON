@@ -18,18 +18,22 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1.0f;
+    }
+
+    private void OnEnable()
+    {
         buttonA.action.started += Pause;
-        Debug.Log("Awake");
+        buttonA.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        buttonA.action.started -= Pause;
     }
 
     void Start()
     {
         AudioManager.instance.PlayMusic(musica);
-    }
-
-    private void Update()
-    {
-        Debug.Log(buttonA.action.ReadValue<bool>());
     }
 
     public void MainMenuButton()
@@ -41,7 +45,6 @@ public class LevelManager : MonoBehaviour
     
     public void Pause (InputAction.CallbackContext context)
     {
-        Debug.Log("Entra en pausa");
         if (panelPause.activeInHierarchy == false)
         {
             AudioManager.instance.PlaySFX(buttonPausa, transform.position);

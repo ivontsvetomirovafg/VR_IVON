@@ -32,18 +32,35 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private AudioClip shoot; 
+    [SerializeField]
+    private AudioClip zombieSFX;
+    [SerializeField]
+    private AudioClip deathSFX;
+    [SerializeField]
+    private AudioSource loopSource; 
 
     void Start()
     {
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        loopSource.clip = zombieSFX;
+        loopSource.loop = true;
+        loopSource.Play();
     }
 
     void Update()
     {
         if (isDead == true) 
         {
+            return;
+        }
+        if (player.GetComponent<PlayerController>().isDead == true)
+        {
+            animator.SetBool("Run", false);
+            animator.SetBool("Attack", false);
+            agent.isStopped = true;
             return;
         }
 
@@ -107,7 +124,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
     public void TakeDamage(float _damage)
     {
         if (isDead == true) 
@@ -120,6 +136,8 @@ public class EnemyController : MonoBehaviour
 
         if (life <= 0)
         {
+            animator.SetTrigger("Die");
+            AudioManager.instance.PlaySFX(deathSFX, transform.position);
             isDead = true;
             agent.isStopped = true;
             GetComponent<Collider>().enabled = false;
@@ -138,14 +156,13 @@ public class EnemyController : MonoBehaviour
         }
         AudioManager.instance.PlaySFX(shoot, transform.position);
         GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        
-        Vector3 point = player.position + new Vector3(0, 1f, 0); //para que no dispare a los pies xd
-        Vector3 direction = (point - bulletSpawnPoint.position).normalized;
 
+        Vector3 aimPoint = player.position + new Vector3(0, 1f, 0);   
+        Vector3 direction = (aimPoint - bulletSpawnPoint.position).normalized;
         bulletClone.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
-        BulletScript bala = bulletClone.GetComponent<BulletScript>(); 
-        bala.damage = bulletDamage;
-        bala.enemyBullet = true;
+
+        bulletClone.GetComponent<BulletScript>().damage = bulletDamage;
+        bulletClone.GetComponent<BulletScript>().enemyBullet = true;  
     }
 
     public void Reload()
