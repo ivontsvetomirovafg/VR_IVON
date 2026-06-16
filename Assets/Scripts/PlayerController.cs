@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         breathSource.Play(); 
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         if (stepsAction == null || stepsAction.action == null) 
         {
@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     private void EmpezarPasos(InputAction.CallbackContext context)
     {
         Debug.Log("paso start");
+
         if (isDead == true) 
         {
             return;
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("paso stopp");
         AudioManager.instance.StopSteps();
-    }
+    }*/
 
     public void TakePlayerDamage(float _damage)
     {
