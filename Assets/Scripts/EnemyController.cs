@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
         if (attackTimer > 0f)
         {
             attackTimer -= Time.deltaTime; //para bajar el coldown
-        }     
+        }
 
         if (following == true)
         {
@@ -76,18 +76,17 @@ public class EnemyController : MonoBehaviour
             agent.SetDestination(player.position);
             float distance = (player.position - transform.position).magnitude;
 
-            animator.SetBool("Run", true);
-            animator.SetBool("Attack", false);
-
-            if (distance <= 10)
+            if (distance <= 10 && attackTimer <= 0f)
             {
-                if (attackTimer <= 0f)
-                {
-                    animator.SetBool("Attack", true);
-                    animator.SetBool("Run", false);
-                    transform.LookAt(player);
-                    attackTimer = attackCooldown;
-                }
+                animator.SetBool("Attack", true);
+                animator.SetBool("Run", false);
+                transform.LookAt(player);
+                attackTimer = attackCooldown;
+            }
+            else if (distance > 10)
+            {
+                animator.SetBool("Run", true);
+                animator.SetBool("Attack", false);
             }
         }
         else
@@ -111,20 +110,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("Entra en tag player"); 
 
-            Ray ray = new Ray(transform.position + new Vector3(0, 1.65f, 0), (player.position - transform.position).normalized);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (collision.CompareTag("Player"))
             {
-                if (hit.transform.tag == "Player")
-                {
-                    following = true;
-                }
+                following = true;
             }
-        }
+        
     }
     public void TakeDamage(float _damage)
     {

@@ -18,6 +18,7 @@ public class PuzzleScipt : MonoBehaviour
     private Animator garaje2;
     [SerializeField]
     private GameObject[] palancas;
+    private int palancasActivadas = 0;
 
     [SerializeField]
     private AudioClip buttonClick; 
@@ -31,7 +32,12 @@ public class PuzzleScipt : MonoBehaviour
     private GameObject puzzleCam;     
     [SerializeField]
     private float duracionCinematica;  
-    private bool puzzle2Completado;
+    //private bool puzzle2Completado = false;
+
+    void Start()
+    {
+        Debug.Log(transform.name + " angulo inicial Y: " + transform.localEulerAngles.y);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -53,11 +59,19 @@ public class PuzzleScipt : MonoBehaviour
 
     public void ActivarPalanca()
     {
-        AudioManager.instance.PlaySFX(palancaActivada, transform.position);  
-        PalancasPuzzle(); 
+        AudioManager.instance.PlaySFX(palancaActivada, transform.position);
+        palancasActivadas++;
+
+        if (palancasActivadas >= palancas.Length)
+        {
+            Debug.Log("Puzzle completado");
+            garaje2.SetTrigger("Open");
+            AudioManager.instance.PlaySFX(garajeSFX, transform.position);
+            StartCoroutine(Cinematica());
+        }
     }
 
-    public void PalancasPuzzle()
+    /*public void PalancasPuzzle()
     {
         if (puzzle2Completado == true)
         {
@@ -67,7 +81,7 @@ public class PuzzleScipt : MonoBehaviour
         bool todasOkay = true;
         foreach (GameObject palanca in palancas)
         {
-            if (palanca.transform.localEulerAngles.y > 45f)  
+            if (palanca.transform.localEulerAngles.y < 45f)
             {
                 todasOkay = false;
             }
@@ -75,16 +89,16 @@ public class PuzzleScipt : MonoBehaviour
 
         if (todasOkay == true)
         {
-            puzzle2Completado = true;
+            Debug.Log("Puzzle completado");
             garaje2.SetTrigger("Open");
             AudioManager.instance.PlaySFX(garajeSFX, transform.position);
             StartCoroutine(Cinematica());
         }
-    }
+    }*/ 
     private IEnumerator Cinematica()
     {
         puzzleCam.SetActive(true);                   
         yield return new WaitForSeconds(duracionCinematica);   
-        puzzleCam.SetActive(false);          
+        puzzleCam.SetActive(false);              
     }
 }

@@ -177,16 +177,13 @@ public class ZombieController : MonoBehaviour
         life -= _damage;
         Debug.Log("Recibe da�o");
 
-        if (zombie2 == true)
+        if (life <= 30 && crawling == false)
         {
-            if (life <= 30 && crawling == false)
-            {
-                crawling = true;
-                animator.SetBool("Attack", false);
-                animator.SetTrigger("Crawl");
-                speed *= 0.4f;
-            }
-        }
+            crawling = true;
+            animator.SetBool("Attack", false);
+            animator.SetTrigger("Crawl");
+            speed *= 0.4f;
+        }     
 
         if (life <= 0)
         {

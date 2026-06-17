@@ -16,7 +16,7 @@ public class PalancaManager : MonoBehaviour
         if (transform.localEulerAngles.y <= 45f)
         {
             activada = true;
-            puzzle.ActivarPalanca();  
+            puzzle.ActivarPalanca();
         }
     }
 }
