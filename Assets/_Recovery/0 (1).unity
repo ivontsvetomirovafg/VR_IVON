@@ -43590,10 +43590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: tenis ball
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 7ae6d44b11ad9b34c823e57068b35e16, type: 3}
-      propertyPath: m_TagString
-      value: Ball
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -47411,6 +47407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniPuzzle
   puerta: {fileID: 802853652}
+  ball: {fileID: 154717280}
   button: {fileID: 8300000, guid: 7b38edd522fd8b241ad7417eabab99c9, type: 3}
 --- !u!4 &1749841686 stripped
 Transform:
@@ -53304,32 +53301,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000013149834228, guid: 6857ff1d3761e21479727f3b27cc8f68, type: 3}
   m_PrefabInstance: {fileID: 1963236517}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1967600934 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4720495291141757538, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-  m_PrefabInstance: {fileID: 5839952501444943378}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1967600936
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967600934}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1969465883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59267,6 +59238,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 581761139}
     m_Modifications:
+    - target: {fileID: 1653245088984576420, guid: c324faa30f03d4232b563d800e8e7158, type: 3}
+      propertyPath: scream
+      value: 
+      objectReference: {fileID: 8300000, guid: e979cac2cf7b7fb4ba6ff64022b70576, type: 3}
     - target: {fileID: 3674566810987201387, guid: c324faa30f03d4232b563d800e8e7158, type: 3}
       propertyPath: m_Name
       value: ZombieGirl
@@ -59310,6 +59285,10 @@ PrefabInstance:
     - target: {fileID: 4158370187707767249, guid: c324faa30f03d4232b563d800e8e7158, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287503608675706598, guid: c324faa30f03d4232b563d800e8e7158, type: 3}
+      propertyPath: m_Volume
+      value: 0.223
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -59968,38 +59947,6 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[3]'
       value: 
       objectReference: {fileID: 1185022945}
-    - target: {fileID: 3962268104694819409, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5654426
-      objectReference: {fileID: 0}
-    - target: {fileID: 3962268104694819409, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1032768
-      objectReference: {fileID: 0}
-    - target: {fileID: 3962268104694819409, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 8.736239
-      objectReference: {fileID: 0}
-    - target: {fileID: 3962268104694819409, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3962268104694819409, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6411984162922343733, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_Direction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6411984162922343733, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550282720820128614, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 8639988511479400117, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.14
@@ -60044,14 +59991,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie Shooter
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6411984162922343733, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4720495291141757538, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1967600936}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b17d8e9345fe42c085282054da3c53b, type: 3}
 --- !u!4 &7768113276163137045 stripped
 Transform:

@@ -27,8 +27,11 @@ public class WeaponController : MonoBehaviour
     private int maxBullets = 15;
     [SerializeField]
     private AudioClip shoot;
-    /*[SerializeField]
-    private ParticleSystem shootFlash;*/
+
+    [SerializeField]
+    private GameObject shootFlashPrefab; 
+    [SerializeField]
+    private Transform flashSpawnPoint;
 
     [SerializeField]
     private AudioClip reload;
@@ -43,11 +46,11 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         timePass += Time.deltaTime;
-        if (slider.localPosition.z <- 0.03)
+        if (slider.localPosition.z <- 0.03 && sliderCargado == false)
         {
             Debug.Log("Hacer el slider");
             sliderCargado = true;
-            //AudioManager.instance.PlaySFX(reload, transform.position);
+            AudioManager.instance.PlaySFX(reload, transform.position);
         }
 
         if (cargador != null)
@@ -81,7 +84,9 @@ public class WeaponController : MonoBehaviour
             {
                 Debug.Log("Bala se instancia");
                 AudioManager.instance.PlaySFX(shoot, transform.position);
-                //shootFlash.Play();   
+
+                GameObject flash = Instantiate(shootFlashPrefab, flashSpawnPoint.position, flashSpawnPoint.rotation);
+                Destroy(flash, 2f);
 
                 GameObject bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 bulletClone.GetComponent<Rigidbody>().linearVelocity = bulletClone.transform.forward*bulletSpeed;

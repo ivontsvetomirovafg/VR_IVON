@@ -8,6 +8,7 @@ TagManager:
   - LeftHand
   - RightHand
   - Enemy
+  - Ball
   layers:
   - Default
   - TransparentFX
