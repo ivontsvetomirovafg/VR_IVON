@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
         breathSource.Stop();
 
         gameOverPanel.SetActive(true);
-        gameOverAnim.SetTrigger("Buttons");
     }
 
     public void UpdateLife()

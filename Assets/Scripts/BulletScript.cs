@@ -12,8 +12,6 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-
         if (enemyBullet == false)  
         {
             if (collision.gameObject.tag == "Enemy")
@@ -21,7 +19,6 @@ public class BulletScript : MonoBehaviour
                 ZombieController zombie = collision.gameObject.GetComponent<ZombieController>();
                 if (zombie != null)
                 {
-                    Debug.Log("Ha colisionado");
                     zombie.TakeDamage(damage);
                 }
 
@@ -32,14 +29,18 @@ public class BulletScript : MonoBehaviour
                 }
             }
         }
-        else  
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (enemyBullet == true)
         {
             if (collision.gameObject.tag == "Player")
             {
                 collision.gameObject.GetComponent<PlayerController>().TakePlayerDamage(damage);
+                Destroy(gameObject);
             }
         }
-
-        Destroy(gameObject);
     }
 }

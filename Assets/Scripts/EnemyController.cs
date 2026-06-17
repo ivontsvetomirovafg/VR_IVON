@@ -14,8 +14,6 @@ public class EnemyController : MonoBehaviour
     private int patrolIndex;
     [SerializeField] 
     private float life;
-    private bool playerDetected;
-    private bool reloading;
     [SerializeField] 
     private float attackCooldown = 1.5f;
     private float attackTimer;
@@ -36,6 +34,8 @@ public class EnemyController : MonoBehaviour
     private AudioClip zombieSFX;
     [SerializeField]
     private AudioClip deathSFX;
+    [SerializeField]
+    private AudioClip detect;
     [SerializeField]
     private AudioSource loopSource; 
 
@@ -71,20 +71,29 @@ public class EnemyController : MonoBehaviour
 
         if (following == true)
         {
-            agent.speed = speed;
-            agent.stoppingDistance = 10;
-            agent.SetDestination(player.position);
             float distance = (player.position - transform.position).magnitude;
 
-            if (distance <= 10 && attackTimer <= 0f)
+            if (distance <= 5)  
             {
-                animator.SetBool("Attack", true);
+                agent.isStopped = true;         
+                transform.LookAt(player);        
                 animator.SetBool("Run", false);
-                transform.LookAt(player);
-                attackTimer = attackCooldown;
+
+                if (attackTimer <= 0f)         
+                {
+                    animator.SetBool("Attack", true);
+                    attackTimer = attackCooldown; 
+                }
+                else
+                {
+                    animator.SetBool("Attack", false);
+                }
             }
-            else if (distance > 10)
+            else  
             {
+                agent.isStopped = false;
+                agent.speed = speed;
+                agent.SetDestination(player.position);
                 animator.SetBool("Run", true);
                 animator.SetBool("Attack", false);
             }
@@ -110,13 +119,21 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-
-            if (collision.CompareTag("Player"))
-            {
-                following = true;
-            }
-        
+        if (collision.CompareTag("Player"))
+        {
+            DetectarPlayer(); 
+        }
     }
+
+    private void DetectarPlayer()
+    {
+        if (following == false) 
+        {
+            following = true;
+            AudioManager.instance.PlaySFX(detect, transform.position);
+        }
+    }
+
     public void TakeDamage(float _damage)
     {
         if (isDead == true) 
@@ -125,7 +142,7 @@ public class EnemyController : MonoBehaviour
         }
 
         life -= _damage;
-        following = true;
+        DetectarPlayer();
 
         if (life <= 0)
         {
@@ -156,15 +173,5 @@ public class EnemyController : MonoBehaviour
 
         bulletClone.GetComponent<BulletScript>().damage = bulletDamage;
         bulletClone.GetComponent<BulletScript>().enemyBullet = true;  
-    }
-
-    public void Reload()
-    {
-        reloading = true;
-    }
-
-    public void FinishReload()
-    {
-        reloading = false;
     }
 }

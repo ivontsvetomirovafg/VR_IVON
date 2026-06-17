@@ -19,7 +19,8 @@ public class Win : MonoBehaviour
             AudioManager.instance.PlaySFX(win, transform.position);
             winPanel.SetActive(true);
             puertaGaraje.SetTrigger("Close");
-            player.enabled = false;
+            player.isDead = true; 
+            player.enabled = false; 
         }    
     }
 }

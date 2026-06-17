@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4104338972669283747}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0021561063, y: -0.08612205, z: -0.0008366546, w: 0.996282}
-  m_LocalPosition: {x: 0.0003, y: 0.0388, z: 0.3196}
+  m_LocalRotation: {x: 0.01993354, y: -0.030789744, z: 0.0057399836, w: -0.9993106}
+  m_LocalPosition: {x: 0.0018, y: 0.0408, z: 0.3624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7159256028463499858}
-  m_LocalEulerAnglesHint: {x: -0.254, y: -9.881, z: -0.074}
+  m_LocalEulerAnglesHint: {x: -2.263, y: 363.544, z: -0.728}
 --- !u!1 &4720495291141757538
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3962268104694819409}
-  - component: {fileID: 6411984162922343733}
+  - component: {fileID: 4875614591085459556}
   m_Layer: 0
   m_Name: Detect
   m_TagString: Untagged
@@ -57,14 +57,14 @@ Transform:
   m_GameObject: {fileID: 4720495291141757538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.022, y: 1.896, z: 1.854}
-  m_LocalScale: {x: 2.0919428, y: 0.6303174, z: 4.45}
+  m_LocalPosition: {x: 0.1, y: 1.896, z: 4}
+  m_LocalScale: {x: 1.5654426, y: 1.1032768, z: 8.736239}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8639988511479400117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6411984162922343733
-CapsuleCollider:
+--- !u!65 &4875614591085459556
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,10 +81,8 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 2
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7264429414280687033
 PrefabInstance:
@@ -347,14 +345,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   life: 100
-  attackCooldown: 1.5
-  bulletPrefab: {fileID: 1542473840133370534, guid: 1eedf7ee124741d4abf1bfe87097a88e, type: 3}
-  bulletSpawnPoint: {fileID: 7159256028463499858}
-  bulletSpeed: 500
-  bulletDamage: 20
+  attackCooldown: 2
+  bulletPrefab: {fileID: 1542473840133370534, guid: e73ef27b38291e74db9247ef8d285a9d, type: 3}
+  bulletSpawnPoint: {fileID: 3644632618600826828}
+  bulletSpeed: 100
+  bulletDamage: 15
   shoot: {fileID: 8300000, guid: f75b6feafe6f6144a83ba3c1d3a330e6, type: 3}
   zombieSFX: {fileID: 8300000, guid: f70912994a6f3aa45a6f7c9ef1a661a5, type: 3}
   deathSFX: {fileID: 8300000, guid: 295c675fe72554440b628ec1146d301c, type: 3}
+  detect: {fileID: 8300000, guid: 5f809b4491653984da09bbf8ba2d2928, type: 3}
   loopSource: {fileID: 4154927595644876461}
 --- !u!54 &8550282720820128614
 Rigidbody:
@@ -364,7 +363,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8983757026091850767}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -379,7 +378,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -441,13 +440,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.052
+  m_Volume: 0.116
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 23
+  Priority: 41
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

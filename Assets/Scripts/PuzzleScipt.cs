@@ -5,8 +5,6 @@ public class PuzzleScipt : MonoBehaviour
 {
     [Header("Puzzle 1")]
     [SerializeField]
-    private MeshRenderer mesh;
-    [SerializeField]
     private GameObject[] puertasGaraje;
     [SerializeField]
     private bool puzzle1 = true;
@@ -34,11 +32,6 @@ public class PuzzleScipt : MonoBehaviour
     private float duracionCinematica;  
     //private bool puzzle2Completado = false;
 
-    void Start()
-    {
-        Debug.Log(transform.name + " angulo inicial Y: " + transform.localEulerAngles.y);
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (puzzle1 == false)
@@ -48,7 +41,6 @@ public class PuzzleScipt : MonoBehaviour
         Debug.Log("Toco el boton");
         AudioManager.instance.PlaySFX(buttonClick, transform.position);
         button.SetTrigger("TouchButton");
-        mesh.materials[3].SetColor("_EmissionColor", Color.green); //hacer que funcione
         foreach (GameObject puerta in puertasGaraje)
         {
             Debug.Log("Se abre el garaje");
